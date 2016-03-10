@@ -38,12 +38,15 @@
 
 
   Celsius.prototype.toFarenheit = function () { //CELSIUS TO FARENHEIT
-     return (this.valor*1.8 + 32);
+     return new Farenheit(this.valor*1.8 + 32);
   }
   Celsius.prototype.toKelvin = function () { //CELSIUS TO KELVIN
-     return (this.valor + 273.15)
+     return new Kelvin(this.valor + 273.15)
  }
 
+ Celsius.prototype.toString = function () {
+    return this.valor.toFixed(2) + " C";
+}
 
   Celsius.prototype.constructor = Celsius;
 
@@ -56,12 +59,17 @@
 
   //FARENHEIT TO CELSIUS
    Farenheit.prototype.toCelsius = function () {
-      return ((this.valor -32)/1.8)
+      return new Celsius((this.valor -32)/1.8)
+//      return ((this.valor -32)/1.8)
    }
   //FARENHEIT TO KELVIN
    Farenheit.prototype.toKelvin = function () {
-      return ((this.valor + 459.67)*5/9)
+      return new Kelvin((this.valor + 459.67)*5/9)
+//      return ((this.valor + 459.67)*5/9)
    }
+   Farenheit.prototype.toString = function () {
+      return this.valor.toFixed(2) + " F";
+  }
 
   Farenheit.prototype.constructor = Farenheit;
 
@@ -74,12 +82,17 @@
 
 
   Kelvin.prototype.toCelsius = function () { //KELVIN TO CELSIUS
-     return (this.valor - 273.15);
+     return new Celsius(this.valor - 273.15);
+//     return (this.valor - 273.15);
   }
   Kelvin.prototype.toFarenheit = function () {  //KELVIN TO FARENHEIT
-     return (this.valor*(9/5) - 459.67)
+     return new Farenheit(this.valor*(9/5) - 459.67);
+//     return (this.valor*(9/5) - 459.67)
   }
 
+ Kelvin.prototype.toString = function () {
+    return this.valor.toFixed(2) + " K";
+}
 
  Kelvin.prototype.constructor = Kelvin;
 
@@ -115,31 +128,32 @@
       var aux = from+to
 
       elemento.className = "salidaValido";
-      
+
       switch (aux) {
           case 'cf':
              var celsius = new Celsius(numero);
-             elemento.innerHTML = celsius.toFarenheit().toFixed(2) + " Farenheit";
+             elemento.innerHTML = celsius.toFarenheit().toString();
              break;
           case 'ck':
              var celsius = new Celsius(numero);
-             elemento.innerHTML = celsius.toKelvin().toFixed(2) + " Kelvin";
+             elemento.innerHTML = celsius.toKelvin().toString();
              break;
           case 'fc':
              var farenheit = new Farenheit(numero);
-             elemento.innerHTML = farenheit.toCelsius().toFixed(2) + " Celsius";
+             elemento.innerHTML = farenheit.toCelsius().toString();
              break;
           case 'fk':
              var farenheit = new Farenheit(numero);
-             elemento.innerHTML = farenheit.toKelvin().toFixed(2) + " Kelvin";
+             elemento.innerHTML = farenheit.toKelvin().toString();
              break;
           case 'kc':
              var kelvin = new Kelvin(numero);
-             elemento.innerHTML = kelvin.toCelsius().toFixed(2) + " Celsius";
+             elemento.innerHTML = kelvin.toCelsius().toString();
              break;
           case 'kf':
              var kelvin = new Kelvin(numero);
-             elemento.innerHTML = kelvin.toFarenheit().toFixed(2) + " Farenheit";
+             elemento.innerHTML = kelvin.toFarenheit().toString();
+//             elemento.innerHTML = kelvin.toFarenheit().toFixed(2) + " Farenheit";
              break;
           default:
            /* rellene este código */
