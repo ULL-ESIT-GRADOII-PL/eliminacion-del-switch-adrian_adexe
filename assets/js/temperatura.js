@@ -26,7 +26,7 @@
    }
 
    Celsius.prototype.toString = function () {
-      return this.valor.toFixed(2) + " C";
+      return this.valor.toFixed(2) + " Celsius";
   }
 
     Celsius.prototype.constructor = Celsius;
@@ -49,7 +49,7 @@
   //      return ((this.valor + 459.67)*5/9)
      }
      Farenheit.prototype.toString = function () {
-        return this.valor.toFixed(2) + " F";
+        return this.valor.toFixed(2) + " Farenheit";
     }
 
     Farenheit.prototype.constructor = Farenheit;
@@ -72,7 +72,7 @@
     }
 
    Kelvin.prototype.toString = function () {
-      return this.valor.toFixed(2) + " K";
+      return this.valor.toFixed(2) + " Kelvin";
   }
 
    Kelvin.prototype.constructor = Kelvin;

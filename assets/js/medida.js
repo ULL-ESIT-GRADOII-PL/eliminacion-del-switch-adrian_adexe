@@ -17,36 +17,44 @@
       this.tipo = tipo
     }
   }
+
+  Medida.matchRegExp =function(valor){
+    var regexp    = XRegExp('^\\s*(?<numero> [+-]?\\d+(?:\\.\\d*)?(?:e[+-]?\\d+)?)\\s*  # numero  \n' +
+                      '(?<tactual> [ckf])\\s+  # TempActual \n' +
+                      '(?<to> to\\s+)?' +
+                      '(?<tdestino> [ckf])\\s*$ # TempDestino \n', 'xi'),
+    valor = XRegExp.exec(valor,regexp);
+    return valor;
+  }
+
   Medida.measures = {};
 
   Medida.convertir = function(valor){
 
-      var regexp    = XRegExp('^\\s*(?<numero> [+-]?\\d+(?:\\.\\d*)?(?:e[+-]?\\d+)?)\\s*  # numero  \n' +
-                        '(?<tactual> [ckf])\\s+  # TempActual \n' +
-                        '(?<to> to\\s+)?' +
-                        '(?<tdestino> [ckf])\\s*$ # TempDestino \n', 'xi'),
-      valor     = valor.match(regexp);
+      valor = Medida.matchRegExp(valor);
 
       if (valor) {
-         var numero = valor[1],
+        var numero = valor[1],
             from   = valor[2].toLowerCase(),
             to     = valor[4].toLowerCase();
 
-         numero = parseFloat(numero);
+        numero = parseFloat(numero);
 
-         var measures = Medida.measures;
+        var measures = Medida.measures;
            measures.c = Celsius;
            measures.f = Farenheit;
            measures.k = Kelvin;
-
-         var source = new measures[from](numero);
-         var target = "to"+measures[to].name;
-         return source[target]() + " " + measures[to].name;
+        try{
+           var source = new measures[from](numero);
+           var target = "to"+measures[to].name;
+           return source[target]();
+        }catch(err) {
+           return "Conversión imposible";
+        }
 
       }
       else {
-        elemento.className = "salidaError";
-        elemento.innerHTML = "Error, cadena incorrecta. Ejemplo válido: -3.5e2c to f";
+        return "Fallo";
       }
   }
   exports.Medida = Medida
