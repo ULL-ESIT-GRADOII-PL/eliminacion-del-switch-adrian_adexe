@@ -17,6 +17,7 @@
       this.tipo = tipo
     }
   }
+  Medida.measures = {};
 
   Medida.convertir = function(valor){
 
@@ -27,48 +28,21 @@
       valor     = valor.match(regexp);
 
       if (valor) {
-      var numero = valor[1],
-         from   = valor[2].toLowerCase(),
-         to     = valor[4].toLowerCase();
+         var numero = valor[1],
+            from   = valor[2].toLowerCase(),
+            to     = valor[4].toLowerCase();
 
-      numero = parseFloat(numero);
-      console.log("Valor: " + numero + ", Temperatura actual: " + from + ", Temperatura a convertir: " + to);
+         numero = parseFloat(numero);
 
-      var aux = from+to
+         var measures = Medida.measures;
+           measures.c = Celsius;
+           measures.f = Farenheit;
+           measures.k = Kelvin;
 
-      //elemento.className = "salidaValido";
+         var source = new measures[from](numero);
+         var target = "to"+measures[to].name;
+         return source[target]() + " " + measures[to].name;
 
-      switch (aux) {
-        case 'cf':
-           var celsius = new Celsius(numero);
-           elemento.innerHTML = celsius.toFarenheit().toString();
-           break;
-        case 'ck':
-           var celsius = new Celsius(numero);
-           elemento.innerHTML = celsius.toKelvin().toString();
-           break;
-        case 'fc':
-           var farenheit = new Farenheit(numero);
-           elemento.innerHTML = farenheit.toCelsius().toString();
-           break;
-        case 'fk':
-           var farenheit = new Farenheit(numero);
-           elemento.innerHTML = farenheit.toKelvin().toString();
-           break;
-        case 'kc':
-           var kelvin = new Kelvin(numero);
-           elemento.innerHTML = kelvin.toCelsius().toString();
-           break;
-        case 'kf':
-           var kelvin = new Kelvin(numero);
-           elemento.innerHTML = kelvin.toFarenheit().toString();
-      //             elemento.innerHTML = kelvin.toFarenheit().toFixed(2) + " Farenheit";
-           break;
-        default:
-         /* rellene este código */
-         elemento.className = "salidaError";
-         elemento.innerHTML = " Conversión imposible";
-      }
       }
       else {
         elemento.className = "salidaError";
