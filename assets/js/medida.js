@@ -49,7 +49,7 @@
            var target = "to"+measures[to].name;
            return source[target]();
         }catch(err) {
-           return "Conversión imposible";
+           return "Imposible";
         }
 
       }

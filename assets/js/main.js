@@ -12,6 +12,10 @@
        elemento.className = "salidaError";
        elemento.innerHTML = "Error, cadena incorrecta. Ejemplo válido: -3.5e2c to f";
      }
+     else if (respuesta == "Imposible"){
+        elemento.className = "salidaError";
+        elemento.innerHTML = "Conversión imposible";        
+     }
      else {
        elemento.innerHTML = Medida.convertir(valor);
      }
